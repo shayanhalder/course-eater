@@ -31,6 +31,7 @@ function App() {
     const [baggedCourses, setBaggedCourses] = useState<courseInformation[]>([]); // array of courses we've added to bag but not added to table
     const [enforcingPrerequisites, setEnforcingPrerequisites] = useState<boolean>(true);
 
+    // initialize addedCourses state variable with keys for the quarters/terms 
     const addedCourseCopy = { ...addedCourses };
     let initializedState = false;
     for (const year of scheduleYears) {
