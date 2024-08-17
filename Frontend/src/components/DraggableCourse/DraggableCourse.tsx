@@ -25,7 +25,7 @@ interface courseDataSchema {
     units: string[]
 }
 
-const SERVER = 'https://course-planner-dl32.onrender.com';
+const SERVER = import.meta.env.VITE_KEY;
 
 export default function DraggableCourse({ id, children, invalidCourses, addedCourses, setAddedCourses, setBaggedCourses }: props) {
     const [courseData, setCourseData] = useState<courseDataSchema | null>(null);

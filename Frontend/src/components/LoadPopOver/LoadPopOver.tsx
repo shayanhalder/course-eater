@@ -11,7 +11,7 @@ import {
 } from '@chakra-ui/react'
 import { useState } from 'react';
 
-const SERVER = 'https://course-planner-dl32.onrender.com';
+const SERVER = import.meta.env.VITE_KEY;
 export default function LoadPopOver({ addedCourses, setAddedCourses }: any) {
     const [passCode, setPasscode] = useState<string>(""); // unique key to access saved course list
     const [isLoading, setIsLoading] = useState<boolean>(false); // used to control loading animation of button

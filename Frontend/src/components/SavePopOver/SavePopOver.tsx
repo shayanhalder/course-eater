@@ -12,7 +12,7 @@ import {
 
 import { useState, useRef } from 'react';
 
-const SERVER = 'https://course-planner-dl32.onrender.com';
+const SERVER = import.meta.env.VITE_KEY;
 export default function SavePopOver({ addedCourses }: any) {
     const [passCode, setPasscode] = useState<string>(""); // unique key to associate saved course list with for future acccess 
     const [isLoading, setIsLoading] = useState<boolean>(false); // used to control loading animation of button

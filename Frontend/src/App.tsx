@@ -21,7 +21,7 @@ export type addedCourseType = {
     [key: string]: courseInformation[];
 }
 
-const SERVER = 'https://course-planner-dl32.onrender.com';
+const SERVER = import.meta.env.VITE_KEY;
 
 function App() {
     const [addedCourses, setAddedCourses] = useState<addedCourseType>({}); // maps key for a term to array of courses taken during that term
