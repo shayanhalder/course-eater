@@ -112,12 +112,11 @@ router.post("/validate-courses", async (req, res) => {
     // Check prerequisites for each course in quarter
     for (cIndex in currQuarter) {
       let currCourseData = prData["data"][`c${cIndex}`];
-      let currPR = currCourseData["prerequisite_tree"];
+      let currPR = currCourseData["prerequisiteTree"];
 
       courseBufferForNextQuarter.add(currCourseData["id"]);
       if (currPR) {
-        let tree = convertToTree(currPR);
-        let reqsMet = evalTree(tree, [...allCourses]);
+        let reqsMet = evalTree(currPR, [...allCourses]);
         if (!reqsMet) {
           pr_coords.push({ q_loc: qIndex, c_loc: cIndex }); // Add course if req hasn't been met
         }
@@ -134,7 +133,7 @@ router.post("/validate-courses", async (req, res) => {
     let crData = await fetchCoreqs(currQuarter);
     for (cIndex in currQuarter) {
       let currCourseData = crData["data"][`c${cIndex}`];
-      let currCR = currCourseData["corequisite"];
+      let currCR = currCourseData["corequisites"];
 
       if (currCR) {
         let reqsMet = evalTokens(currCR, [...allCourses]);

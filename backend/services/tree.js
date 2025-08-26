@@ -5,7 +5,7 @@ const convertToTree = (str) => {
 };
 
 const evalTree = (treeObj, coursesTaken) => {
-  if (!treeObj) {
+  if (!treeObj || Object.keys(treeObj).length === 0) {
     return true;
   }
   const isAnd = "AND" in treeObj;
@@ -17,9 +17,10 @@ const evalTree = (treeObj, coursesTaken) => {
   const reqLen = reqs.length;
   for (let i = 0; i < reqLen; i++) {
     let req = reqs[i];
+
     let reqTaken;
-    if (typeof req === "string") {
-      reqTaken = _courseInList(req, coursesTaken);
+    if (_isCourse(req)) {
+      reqTaken = _courseInList(req["courseId"], coursesTaken);
     } else {
       reqTaken = evalTree(req, coursesTaken);
     }
@@ -29,6 +30,10 @@ const evalTree = (treeObj, coursesTaken) => {
   }
   return isAnd;
 };
+
+function _isCourse(course) {
+  return !("AND" in course) && !("OR" in course);
+}
 
 function _courseInList(course, l) {
   const listLen = l.length;

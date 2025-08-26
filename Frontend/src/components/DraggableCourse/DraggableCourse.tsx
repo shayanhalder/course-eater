@@ -20,9 +20,9 @@ interface courseDataSchema {
     school: string,
     description: string,
     restriction: string,
-    prerequisite_text: string,
-    ge_text: string,
-    units: string[]
+    prerequisiteText: string,
+    geText: string,
+    maxUnits: number
 }
 
 const SERVER = import.meta.env.VITE_KEY;
@@ -113,7 +113,7 @@ export default function DraggableCourse({ id, children, invalidCourses, addedCou
 
                 <br />
                 {
-                    courseData && `(${courseData.units[0]} units)`
+                    courseData && `(${courseData.maxUnits} units)`
                 }
                 <br /><br />
                 {
@@ -127,12 +127,12 @@ export default function DraggableCourse({ id, children, invalidCourses, addedCou
                 <br /><br />
 
                 {
-                    courseData && <span> Prerequisite: {courseData.prerequisite_text}</span>
+                    courseData && <span> Prerequisite: {courseData.prerequisiteText}</span>
                 }
 
                 <br /><br />
                 {
-                    courseData && <span> <b>{courseData.ge_text}</b></span>
+                    courseData && <span> <b>{courseData.geText}</b></span>
                 }
 
                 <div>

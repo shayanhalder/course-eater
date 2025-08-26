@@ -109,7 +109,15 @@ function App() {
         }
 
         setTimeout(() => {
-            checkPrerequisites(orderedCourses);
+            checkPrerequisites(orderedCourses).catch(
+                (error) => {
+                    if (error.name === "AbortError") {
+                        console.log("Fetch aborted");
+                    } else {
+                        console.error("Fetch error: ", error);
+                    }
+                }
+            );
         }, 1000);
 
         return () => {

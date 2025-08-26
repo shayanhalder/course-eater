@@ -1,7 +1,7 @@
 const axios = require("axios");
 
-endpoint = "https://api.peterportal.org/graphql/";
-
+//endpoint = "https://api.peterportal.org/graphql/";
+const endpoint = "https://anteaterapi.com/v2/graphql/"
 /**
  * Given a courseId String, return a GQL JSON response containing course data.
  * @param {string} courseId  UCI Course ID (ex. COMPSCI151).
@@ -10,7 +10,7 @@ endpoint = "https://api.peterportal.org/graphql/";
 async function fetchCourse(courseId) {
   try {
     const response = await axios({
-      url: "https://api.peterportal.org/graphql/",
+      url: endpoint,
       method: "post",
       data: {
         query: `
@@ -18,13 +18,13 @@ async function fetchCourse(courseId) {
           course(id:"${courseId}") {
               id
               description
-              prerequisite_text
-              corequisite
+              prerequisiteText
+              corequisites
               restriction
-              units
+              maxUnits
               school
               department
-              ge_text
+              geText
           }
       }    
           `,
@@ -44,14 +44,14 @@ async function fetchCourse(courseId) {
 async function fetchRStrings(courseId) {
   try {
     const response = await axios({
-      url: "https://api.peterportal.org/graphql/",
+      url: endpoint,
       method: "post",
       data: {
         query: `
             query {
               course(id:"${courseId}") {
-                  prerequisite_text
-                  corequisite
+                  prerequisiteText
+                  corequisites
               }
             }    
           `,
@@ -66,13 +66,13 @@ async function fetchRStrings(courseId) {
 async function fetchGE(courseId) {
   try {
     const response = await axios({
-      url: "https://api.peterportal.org/graphql/",
+      url: endpoint,
       method: "post",
       data: {
         query: `
             query {
               course(id:"${courseId}") {
-                  ge_list
+                  geList
               }
             }    
           `,
@@ -87,13 +87,13 @@ async function fetchGE(courseId) {
 async function fetchPRTree(courseId) {
   try {
     const response = await axios({
-      url: "https://api.peterportal.org/graphql/",
+      url: endpoint,
       method: "post",
       data: {
         query: `
             query {
               course(id:"${courseId}") {
-                  prerequisite_tree
+                  prerequisiteTree
               }
             }    
           `,
@@ -111,20 +111,23 @@ async function fetchPrereqs(courses) {
     dataQuery += `
       c${courseIndex}:course(id:"${courses[courseIndex]}") {
         id
-        prerequisite_tree
+        prerequisiteTree
       }
     `
   }
   dataQuery = `query { ${dataQuery} }`
+  console.log(dataQuery)
   
   try {
     const response = await axios({
-      url: "https://api.peterportal.org/graphql/",
+      url: endpoint,
       method: "post",
       data: {
         query: dataQuery,
       },
     });
+    console.log(response)
+    console.log(response.data)
     return response.data;
   } catch (error) {
     return "ERROR: Requisite fetching";
@@ -137,7 +140,7 @@ async function fetchCoreqs(courses) {
     dataQuery += `
       c${courseIndex}:course(id:"${courses[courseIndex]}") {
         id
-        corequisite
+        corequisites
       }
     `
   }
@@ -145,7 +148,7 @@ async function fetchCoreqs(courses) {
   
   try {
     const response = await axios({
-      url: "https://api.peterportal.org/graphql/",
+      url: endpoint,
       method: "post",
       data: {
         query: dataQuery,
