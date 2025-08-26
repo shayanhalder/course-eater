@@ -108,6 +108,9 @@ router.post("/validate-courses", async (req, res) => {
     let courseBufferForNextQuarter = new Set();
     let currQuarter = courseMatrix[qIndex];
     let prData = await fetchPrereqs(currQuarter);
+    if (!prData) {
+      continue;
+    }
 
     // Check prerequisites for each course in quarter
     for (cIndex in currQuarter) {
