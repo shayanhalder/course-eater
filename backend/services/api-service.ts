@@ -1,14 +1,47 @@
 // const axios = require("axios");
 import axios from "axios";
 
-//endpoint = "https://api.peterportal.org/graphql/";
 const endpoint: string = "https://anteaterapi.com/v2/graphql/"
-/**
+
+interface fetchCourseResponse  {
+    id: string;
+    description: string;
+    prerequisiteText: string;
+    corequisites: string;
+    restriction: string;
+    maxUnits: number;
+    school: string;
+    department: string;
+    geText: string;
+}
+
+interface fetchRStringsResponse {
+    prerequisiteText: string;
+    corequisites: string;
+}
+
+interface fetchGEResponse {
+    geList: string[];
+}
+
+interface fetchPRTreeResponse {
+    prerequisiteTree: string;
+}
+
+interface fetchPrereqsResponse {
+    prerequisiteTree: string;
+}
+
+interface fetchCoreqsResponse {
+    corequisites: string;
+}
+
+    /**
  * Given a courseId String, return a GQL JSON response containing course data.
  * @param {string} courseId  UCI Course ID (ex. COMPSCI151).
  * @returns                  Response data in JSON format.
  */
-export async function fetchCourse(courseId) {
+export async function fetchCourse(courseId: string): Promise<fetchCourseResponse | string> {
   try {
     // console.log("Fetching course: ", courseId);
     const response = await axios({
@@ -32,8 +65,6 @@ export async function fetchCourse(courseId) {
           `,
       },
     });
-    // console.log(response);
-    // console.log(response.data);
     return response.data;
   } catch (error) {
     console.error("Error while fetching course information: ", error);
@@ -46,7 +77,7 @@ export async function fetchCourse(courseId) {
  * @param {string} courseId
  * @returns
  */
-async function fetchRStrings(courseId) {
+export async function fetchRStrings(courseId: string): Promise<fetchRStringsResponse | string> {
   try {
     const response = await axios({
       url: endpoint,
@@ -68,7 +99,7 @@ async function fetchRStrings(courseId) {
   }
 }
 
-async function fetchGE(courseId) {
+export async function fetchGE(courseId: string): Promise<fetchGEResponse | string> {
   try {
     const response = await axios({
       url: endpoint,
@@ -89,7 +120,7 @@ async function fetchGE(courseId) {
   }
 }
 
-async function fetchPRTree(courseId) {
+export async function fetchPRTree(courseId: string): Promise<fetchPRTreeResponse | string> {
   try {
     const response = await axios({
       url: endpoint,
@@ -110,9 +141,9 @@ async function fetchPRTree(courseId) {
   }
 }
 
-async function fetchPrereqs(courses: number[]) {
+export async function fetchPrereqs(courses: number[]): Promise<fetchPrereqsResponse | string> {
   if (courses.length === 0) {
-    return null;
+    return "ERROR: No courses provided";
   }
   let dataQuery = "";
   for (let courseIndex in courses) {
@@ -142,7 +173,7 @@ async function fetchPrereqs(courses: number[]) {
   }
 }
 
-async function fetchCoreqs(courses: number[]) {
+export async function fetchCoreqs(courses: number[]): Promise<fetchCoreqsResponse | string> {
   let dataQuery = "";
   for (let courseIndex in courses) {
     dataQuery += `
