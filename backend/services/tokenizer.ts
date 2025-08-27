@@ -1,19 +1,20 @@
 // Edge case
 // SPANISH 1C or SPANISH S1BC. SPANISH 1C with a grade of C or better. SPANISH S1BC with a grade of C or better. Placement into SPANISH 2A is also accepted.
 
-const { Symbols, Departments } = require("./symbols.js");
+// const { Symbols, Departments } = require("./symbols.js");
+import { Symbols, Departments } from "./symbols.ts";
 /**
  * Turns a string of prerequisites or corequisites into tokens.
  * @param  {string} str Requisite string to turn into tokens.
  * @returns {array}
  */
-const toTokens = (str) => {
-  let words = _toWords(str);
+export const toTokens = (str) => {
+  let words: any = _toWords(str);
   let wordLen = words.length;
-  let tokenResult = [];
-  let nameWords = [];
+  let tokenResult: any = [];
+  let nameWords: any = [];
   for (let i = 0; i < wordLen; i++) {
-    let curWord = words[i];
+    let curWord: any = words[i];
     let wordIsSyntax = isSyntax(curWord);
 
     // EDGE CASE: "grade of _ or better"
@@ -44,7 +45,7 @@ const toTokens = (str) => {
  * @param   {string} str String to check whether it is a symbol.
  * @returns {boolean}    Whether the string is a valid Symbol.
  */
-const isSyntax = (str) => {
+export const isSyntax = (str) => {
   return Object.values(Symbols).includes(str);
 };
 
@@ -53,7 +54,7 @@ const isSyntax = (str) => {
  * @param {string} str Input string to evaluate.
  * @returns            Whether the string is a course.
  */
-const isCourse = (str) => {
+export const isCourse = (str) => {
   let currDept;
   let deptIndex;
   for (let i = 0; i < 118; i++) {
@@ -87,7 +88,7 @@ const isCourse = (str) => {
  * @param {*} sentenceTokens Array of tokens.
  * @returns                  Whether the sentence is a logic expression.
  */
-const sentenceIsLogic = (sentenceTokens) => {
+export const sentenceIsLogic = (sentenceTokens) => {
   // Is considered to be logic if the # of valid terms > # of unknown terms
   const sentenceTokensLen = sentenceTokens.length;
   let logicCount = 0;
@@ -110,10 +111,10 @@ const sentenceIsLogic = (sentenceTokens) => {
  * @param   {string} str String to be split into tokens.
  * @returns {array}      Array of tokens.
  */
-function _toWords(str) {
-  let words = str.toUpperCase().split(" ");
-  filteredWords = words.filter((e) => e != "");
+export function _toWords(str: string) : any {
+  let words: any = str.toUpperCase().split(" ");
+  let filteredWords: any = words.filter((e: any) => e != "");
   return filteredWords;
 }
 
-module.exports = { toTokens, isSyntax, sentenceIsLogic };
+// module.exports = { toTokens, isSyntax, sentenceIsLogic };

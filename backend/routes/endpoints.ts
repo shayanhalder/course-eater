@@ -1,4 +1,5 @@
-const express = require('express');
+// const express = require('express');
+import express from 'express';
 const router = express.Router();
 
 const fetchCourse = require('../services/api-service.js')

@@ -1,13 +1,14 @@
-const axios = require("axios");
+// const axios = require("axios");
+import axios from "axios";
 
 //endpoint = "https://api.peterportal.org/graphql/";
-const endpoint = "https://anteaterapi.com/v2/graphql/"
+const endpoint: string = "https://anteaterapi.com/v2/graphql/"
 /**
  * Given a courseId String, return a GQL JSON response containing course data.
  * @param {string} courseId  UCI Course ID (ex. COMPSCI151).
  * @returns                  Response data in JSON format.
  */
-async function fetchCourse(courseId) {
+export async function fetchCourse(courseId) {
   try {
     // console.log("Fetching course: ", courseId);
     const response = await axios({
@@ -109,12 +110,12 @@ async function fetchPRTree(courseId) {
   }
 }
 
-async function fetchPrereqs(courses) {
+async function fetchPrereqs(courses: number[]) {
   if (courses.length === 0) {
     return null;
   }
   let dataQuery = "";
-  for (courseIndex in courses) {
+  for (let courseIndex in courses) {
     dataQuery += `
       c${courseIndex}:course(id:"${courses[courseIndex]}") {
         id
@@ -141,9 +142,9 @@ async function fetchPrereqs(courses) {
   }
 }
 
-async function fetchCoreqs(courses) {
+async function fetchCoreqs(courses: number[]) {
   let dataQuery = "";
-  for (courseIndex in courses) {
+  for (let courseIndex in courses) {
     dataQuery += `
       c${courseIndex}:course(id:"${courses[courseIndex]}") {
         id

@@ -1,6 +1,9 @@
-const express = require("express");
+// const express = require('express');
+import express from 'express';
 const router = express.Router();
-const { fetchCourse } = require("../services/api-service.js");
+// const { fetchCourse } = require("../services/api-service.js");
+import { fetchCourse } from "../services/api-service.ts";
+
 
 router.get("/", (req, res) => {
   res.set("Content-Type", "text/html");

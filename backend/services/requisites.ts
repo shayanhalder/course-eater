@@ -1,12 +1,14 @@
-const { toTokens, isSyntax } = require("./tokenizer.js");
-const { Symbols } = require("./symbols.js");
+// const { toTokens, isSyntax } = require("./tokenizer.ts");
+// const { Symbols } = require("./symbols.ts");
+import { toTokens, isSyntax } from "./tokenizer.ts";
+import { Symbols } from "./symbols.ts";
 
 /**
  * Separates string into sentences.
  * @param {string} str Input string to split.
  * @returns            Array of sentences.
  */
-const strToClauses = (str) => {
+export const strToClauses = (str: string) => {
   if (!str) {
     return [];
   }
@@ -28,11 +30,11 @@ const strToClauses = (str) => {
  * @param {*} coursesTaken Array of courses taken.
  * @returns                Whether courses meet the requisites
  */
-const evalTokens = (rStr, coursesTaken) => {
+export const evalTokens = (rStr: string, coursesTaken: string[]) => {
   let currToken;
   let taken;
   let rTokens = toTokens(_padParens(rStr));
-  rLen = rTokens.length;
+  let rLen: number = rTokens.length;
 
   for (let i = 0; i < rLen; i++) {
     currToken = rTokens[i];
@@ -56,7 +58,7 @@ const evalTokens = (rStr, coursesTaken) => {
  * @param {*} str String to pad parentheses.
  * @returns       Padded string.
  */
-function _padParens(str) {
+function _padParens(str: string) {
   let result = str;
   const sLen = str.length;
   for (let i = 0; i < sLen; i++) {
@@ -78,7 +80,7 @@ function _padParens(str) {
  * @param {string} input2 String 2.
  * @returns               Equivalence of input1 and input2.
  */
-function _equalIgnoreCaseSpace(input1, input2) {
+function _equalIgnoreCaseSpace(input1: string, input2: string) {
   let s1 = input1.replace(/\s+/g, "");
   let s2 = input2.replace(/\s+/g, "");
   return s1.toLowerCase() === s2.toLowerCase();

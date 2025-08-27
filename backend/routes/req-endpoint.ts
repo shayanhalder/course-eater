@@ -1,7 +1,10 @@
-const express = require("express");
+// const express = require('express');
+import express from 'express';
 
-const { evalTokens, strToClauses } = require("../services/requisites.js");
-const { sentenceIsLogic } = require("../services/tokenizer.js");
+// const { evalTokens, strToClauses } = require("../services/requisites.js");
+// const { sentenceIsLogic } = require("../services/tokenizer.js");
+import { evalTokens, strToClauses } from "../services/requisites.ts";
+import { sentenceIsLogic } from "../services/tokenizer.ts";
 
 const {
   fetchRStrings,
@@ -97,14 +100,14 @@ router.get("/req-tree-met", async (req, res) => {
 });
 
 router.post("/validate-courses", async (req, res) => {
-  const courseMatrix = req.body["courseMatrix"];
+  const courseMatrix : any = req.body["courseMatrix"];
 
-  let pr_coords = [];
-  let cr_coords = [];
-  let allCourses = new Set();
+  let pr_coords : any = [];
+  let cr_coords : any = [];
+  let allCourses : any = new Set();
 
   // Loop through each quarter
-  for (qIndex in courseMatrix) {
+  for (let qIndex in courseMatrix) {
     let courseBufferForNextQuarter = new Set();
     let currQuarter = courseMatrix[qIndex];
     let prData = await fetchPrereqs(currQuarter);
@@ -113,7 +116,7 @@ router.post("/validate-courses", async (req, res) => {
     }
 
     // Check prerequisites for each course in quarter
-    for (cIndex in currQuarter) {
+    for (let cIndex in currQuarter) {
       let currCourseData = prData["data"][`c${cIndex}`];
       let currPR = currCourseData["prerequisiteTree"];
 
@@ -134,7 +137,7 @@ router.post("/validate-courses", async (req, res) => {
     // This is because corequisites are valid whether they are being taken
     // currently or they have been taken previously.
     let crData = await fetchCoreqs(currQuarter);
-    for (cIndex in currQuarter) {
+    for (let cIndex in currQuarter) {
       let currCourseData = crData["data"][`c${cIndex}`];
       let currCR = currCourseData["corequisites"];
 
