@@ -30,6 +30,11 @@ export default function LoadPopOver({ addedCourses, setAddedCourses }: any) {
         })
 
         const data = await promise.json();
+        if (!data.data || !data.data.scheduleA) {
+            alert("No schedule data found for passcode: " + passCode);
+            setIsLoading(false);
+            return;
+        }
 
         const scheduleData = data.data.scheduleA;
         for (let i = 0; i < scheduleData.length; i++) {

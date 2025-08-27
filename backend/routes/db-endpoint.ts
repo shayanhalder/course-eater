@@ -16,7 +16,8 @@ router.post("/load-schedule-db", async (req, res) => {
 
     res.status(200).json({ data: data })
   } catch (err) {
-    res.status(404).send("Error: something went wrong while fetching data.")
+    console.error(`Error: something went wrong while fetching data. ${err}`)
+    res.status(404).send(`Error: something went wrong while fetching data. ${err}`)
   }
 
 });
