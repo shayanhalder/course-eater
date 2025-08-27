@@ -8,7 +8,7 @@ import { Symbols } from "./symbols.ts";
  * @param {string} str Input string to split.
  * @returns            Array of sentences.
  */
-export const strToClauses = (str: string) => {
+export const strToClauses = (str: string) : string[] => {
   if (!str) {
     return [];
   }
@@ -30,7 +30,7 @@ export const strToClauses = (str: string) => {
  * @param {*} coursesTaken Array of courses taken.
  * @returns                Whether courses meet the requisites
  */
-export const evalTokens = (rStr: string, coursesTaken: string[]) => {
+export const evalTokens = (rStr: string, coursesTaken: string[]) : boolean => {
   let currToken;
   let taken;
   let rTokens = toTokens(_padParens(rStr));
@@ -58,7 +58,7 @@ export const evalTokens = (rStr: string, coursesTaken: string[]) => {
  * @param {*} str String to pad parentheses.
  * @returns       Padded string.
  */
-function _padParens(str: string) {
+function _padParens(str: string) : string {
   let result = str;
   const sLen = str.length;
   for (let i = 0; i < sLen; i++) {
@@ -80,7 +80,7 @@ function _padParens(str: string) {
  * @param {string} input2 String 2.
  * @returns               Equivalence of input1 and input2.
  */
-function _equalIgnoreCaseSpace(input1: string, input2: string) {
+function _equalIgnoreCaseSpace(input1: string, input2: string) : boolean {
   let s1 = input1.replace(/\s+/g, "");
   let s2 = input2.replace(/\s+/g, "");
   return s1.toLowerCase() === s2.toLowerCase();

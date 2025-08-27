@@ -30,8 +30,8 @@ router.get("/reqs-met", async (req, res) => {
   let prsmet = true;
   let crsmet = true; // set results default to true
 
-  let prClauses = strToClauses(prText);
-  let crClauses = strToClauses(crText);
+  let prClauses : string[] = strToClauses(prText);
+  let crClauses : string[] = strToClauses(crText);
   let prClausesLen = prClauses.length;
   let crClausesLen = crClauses.length; // separate by sentences
 

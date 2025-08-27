@@ -1,42 +1,10 @@
 // const axios = require("axios");
 import axios from "axios";
+import { fetchCourseResponse, fetchRStringsResponse, fetchGEResponse, fetchPRTreeResponse, fetchPrereqsResponse, fetchCoreqsResponse } from "./serviceTypes.ts";
 
 const endpoint: string = "https://anteaterapi.com/v2/graphql/"
 
-interface fetchCourseResponse  {
-    id: string;
-    description: string;
-    prerequisiteText: string;
-    corequisites: string;
-    restriction: string;
-    maxUnits: number;
-    school: string;
-    department: string;
-    geText: string;
-}
-
-interface fetchRStringsResponse {
-    prerequisiteText: string;
-    corequisites: string;
-}
-
-interface fetchGEResponse {
-    geList: string[];
-}
-
-interface fetchPRTreeResponse {
-    prerequisiteTree: string;
-}
-
-interface fetchPrereqsResponse {
-    prerequisiteTree: string;
-}
-
-interface fetchCoreqsResponse {
-    corequisites: string;
-}
-
-    /**
+/**
  * Given a courseId String, return a GQL JSON response containing course data.
  * @param {string} courseId  UCI Course ID (ex. COMPSCI151).
  * @returns                  Response data in JSON format.

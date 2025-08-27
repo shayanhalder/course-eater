@@ -8,7 +8,7 @@ import { Symbols, Departments } from "./symbols.ts";
  * @param  {string} str Requisite string to turn into tokens.
  * @returns {array}
  */
-export const toTokens = (str) => {
+export const toTokens = (str: string) : string[] => {
   let words: any = _toWords(str);
   let wordLen = words.length;
   let tokenResult: any = [];
@@ -45,7 +45,7 @@ export const toTokens = (str) => {
  * @param   {string} str String to check whether it is a symbol.
  * @returns {boolean}    Whether the string is a valid Symbol.
  */
-export const isSyntax = (str) => {
+export const isSyntax = (str: string) : boolean => {
   return Object.values(Symbols).includes(str);
 };
 
@@ -54,7 +54,7 @@ export const isSyntax = (str) => {
  * @param {string} str Input string to evaluate.
  * @returns            Whether the string is a course.
  */
-export const isCourse = (str) => {
+export const isCourse = (str: string) : boolean => {
   let currDept;
   let deptIndex;
   for (let i = 0; i < 118; i++) {
@@ -88,7 +88,7 @@ export const isCourse = (str) => {
  * @param {*} sentenceTokens Array of tokens.
  * @returns                  Whether the sentence is a logic expression.
  */
-export const sentenceIsLogic = (sentenceTokens) => {
+export const sentenceIsLogic = (sentenceTokens: string) : boolean => {
   // Is considered to be logic if the # of valid terms > # of unknown terms
   const sentenceTokensLen = sentenceTokens.length;
   let logicCount = 0;
@@ -111,9 +111,9 @@ export const sentenceIsLogic = (sentenceTokens) => {
  * @param   {string} str String to be split into tokens.
  * @returns {array}      Array of tokens.
  */
-export function _toWords(str: string) : any {
-  let words: any = str.toUpperCase().split(" ");
-  let filteredWords: any = words.filter((e: any) => e != "");
+export function _toWords(str: string) : string[] {
+  let words: string[] = str.toUpperCase().split(" ");
+  let filteredWords: string[] = words.filter((e: string) => e != "");
   return filteredWords;
 }
 
