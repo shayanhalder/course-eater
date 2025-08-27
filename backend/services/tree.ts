@@ -6,7 +6,7 @@ const convertToTree = (str: string): treeObj => {
     return JSON.parse(str);
   };
   
-  const evalTree = (treeObj: treeObj | courseRequirement, coursesTaken: string[]) : boolean => {
+  const evalTree = (treeObj: treeObj, coursesTaken: string[]) : boolean => {
     if (!treeObj || Object.keys(treeObj).length === 0) {
       return true;
     }
@@ -24,9 +24,9 @@ const convertToTree = (str: string): treeObj => {
       let req = reqs[i];
   
       let reqTaken;
-      if (_isCourse(req)) {
+      if (_isCourse(req) && 'courseId' in req) {
         reqTaken = _courseInList(req["courseId"], coursesTaken);
-      } else {
+      } else if (!('courseId' in req)) {
         reqTaken = evalTree(req, coursesTaken);
       }
       if (reqTaken != isAnd) {
