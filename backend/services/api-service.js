@@ -9,7 +9,7 @@ const endpoint = "https://anteaterapi.com/v2/graphql/"
  */
 async function fetchCourse(courseId) {
   try {
-    console.log("Fetching course: ", courseId);
+    // console.log("Fetching course: ", courseId);
     const response = await axios({
       url: endpoint,
       method: "post",
@@ -31,8 +31,8 @@ async function fetchCourse(courseId) {
           `,
       },
     });
-    console.log(response);
-    console.log(response.data);
+    // console.log(response);
+    // console.log(response.data);
     return response.data;
   } catch (error) {
     console.error("Error while fetching course information: ", error);
@@ -123,7 +123,7 @@ async function fetchPrereqs(courses) {
     `
   }
   dataQuery = `query { ${dataQuery} }`
-  console.log(dataQuery)
+  // console.log(dataQuery)
   
   try {
     const response = await axios({
@@ -133,8 +133,8 @@ async function fetchPrereqs(courses) {
         query: dataQuery,
       },
     });
-    console.log(response)
-    console.log(response.data)
+    // console.log(response)
+    // console.log(response.data)
     return response.data;
   } catch (error) {
     return "ERROR: Requisite fetching";

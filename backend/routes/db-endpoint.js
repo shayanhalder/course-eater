@@ -6,10 +6,10 @@ const router = express.Router();
 router.post("/load-schedule-db", async (req, res) => {
   try {
     const client = await connectDB();
-    const db = client.db('application')
-    const collection = db.collection('users')
+    const db = client.db('course-eater')
+    const collection = db.collection('schedules')
 
-    const query = { email: req.body["email"] }
+    const query = { passcode: req.body["passcode"] }
     const data = await collection.findOne(query)
 
     res.status(200).json({ data: data })
@@ -23,13 +23,13 @@ router.post("/load-schedule-db", async (req, res) => {
 router.put("/save-schedule-db", async (req, res) => {
   try {
     const client = await connectDB();
-    const db = client.db('application')
-    const collection = db.collection('users')
+    const db = client.db('course-eater')
+    const collection = db.collection('schedules')
 
-    const filter = { email: req.body["email"] }
+    const filter = { passcode: req.body["passcode"] }
     const update = {
       $set: {
-        email: req.body["email"],
+        passcode: req.body["passcode"],
         lastUpdated: (new Date()).toUTCString(),
         scheduleA: req.body["scheduleA"],
         scheduleB: req.body["scheduleB"],
@@ -42,7 +42,7 @@ router.put("/save-schedule-db", async (req, res) => {
 
     res.status(200).send("Data update success!")
   } catch (err) {
-    res.status(404).send("Error: something went wrong while updating data.")
+    res.status(404).send(`ERROR: something went wrong while updating data: ${err}`)
   }
 })
 

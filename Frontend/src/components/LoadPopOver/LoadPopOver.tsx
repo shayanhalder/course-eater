@@ -25,7 +25,7 @@ export default function LoadPopOver({ addedCourses, setAddedCourses }: any) {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                email: passCode
+                passcode: passCode
             })
         })
 

@@ -39,7 +39,7 @@ export default function SavePopOver({ addedCourses }: any) {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                email: passCode,
+                passcode: passCode,
                 scheduleA: orderedCourses,
                 scheduleB: [[]],
                 scheduleC: [[]]
