@@ -31,3 +31,17 @@ export interface fetchPrereqsResponse {
 export interface fetchCoreqsResponse {
     corequisites: string;
 }
+
+export interface courseRequirement {
+    "coreq": boolean,
+    "courseId": string,
+    "minGrade": string,
+    "prereqType": string
+}
+
+export interface treeObj {
+    "AND"?: (courseRequirement[] | treeObj[]); 
+    "OR"?: (courseRequirement[] | treeObj[]);
+}
+
+

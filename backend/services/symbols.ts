@@ -120,7 +120,7 @@ export const Departments : string[] = [
     "VIS STD",
   ];
   
-export const Symbols : any = Object.freeze({
+export const Symbols : { [key: string]: string } = Object.freeze({
     L_PAREN: "(",
     R_PAREN: ")",
     OR: "OR",
