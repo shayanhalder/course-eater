@@ -3,7 +3,7 @@ import express from 'express';
 
 const router = express.Router();
 
-import { fetchGE } from "../services/api-service.ts";
+import { fetchGE } from "../services/api-service";
 
 router.get("/ge-met", async (req, res) => {
   const ge = await fetchGE("COMPSCI151");

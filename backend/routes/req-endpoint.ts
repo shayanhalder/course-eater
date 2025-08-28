@@ -3,85 +3,85 @@ import express from 'express';
 
 // const { evalTokens, strToClauses } = require("../services/requisites.js");
 // const { sentenceIsLogic } = require("../services/tokenizer.js");
-import { evalTokens, strToClauses } from "../services/requisites.ts";
-import { sentenceIsLogic } from "../services/tokenizer.ts";
+import { evalTokens, strToClauses } from "../services/requisites";
+import { sentenceIsLogic } from "../services/tokenizer";
 
 import {
   fetchRStrings,
   fetchPRTree,
   fetchPrereqs,
   fetchCoreqs,
-} from "../services/api-service.ts";
+} from "../services/api-service";
 
-import { evalTree } from "../services/tree.ts";
+import { evalTree } from "../services/tree";
 const router = express.Router();
 
-router.get("/reqs-met", async (req, res) => {
-  const body = req.body;
-  const courseId = body["courseId"];
-  let prevCourses = body["prevCourses"];
-  let currCourses = body["currCourses"]; // All courses already taken
+// router.get("/reqs-met", async (req, res) => {
+//   const body = req.body;
+//   const courseId = body["courseId"];
+//   let prevCourses = body["prevCourses"];
+//   let currCourses = body["currCourses"]; // All courses already taken
 
-  let gqlData = await fetchRStrings(courseId);
-  const prText = gqlData["data"]["course"]["prerequisite_text"];
-  const crText = gqlData["data"]["course"]["corequisite"]; // raw requisite text
+//   let gqlData = await fetchRStrings(courseId);
+//   const prText = gqlData["data"]["course"]["prerequisite_text"];
+//   const crText = gqlData["data"]["course"]["corequisite"]; // raw requisite text
 
-  let prsmet = true;
-  let crsmet = true; // set results default to true
+//   let prsmet = true;
+//   let crsmet = true; // set results default to true
 
-  let prClauses : string[] = strToClauses(prText);
-  let crClauses : string[] = strToClauses(crText);
-  let prClausesLen = prClauses.length;
-  let crClausesLen = crClauses.length; // separate by sentences
+//   let prClauses : string[] = strToClauses(prText);
+//   let crClauses : string[] = strToClauses(crText);
+//   let prClausesLen = prClauses.length;
+//   let crClausesLen = crClauses.length; // separate by sentences
 
-  if (prClausesLen > 0 && sentenceIsLogic(prClauses[0])) {
-    prsmet = evalTokens(prClauses[0], prevCourses);
-    prClauses = prClauses.slice(1);
-    prClausesLen--;
-  } // If the first clause is a valid boolean logic expression, set prsmet
-  // to evaluate to that expression and remove it from the clauses.
+//   if (prClausesLen > 0 && sentenceIsLogic(prClauses[0])) {
+//     prsmet = evalTokens(prClauses[0], prevCourses);
+//     prClauses = prClauses.slice(1);
+//     prClausesLen--;
+//   } // If the first clause is a valid boolean logic expression, set prsmet
+//   // to evaluate to that expression and remove it from the clauses.
 
-  if (crClausesLen > 0 && sentenceIsLogic(crClauses[0])) {
-    crsmet = evalTokens(crClauses[0], currCourses);
-    crClauses = prClauses.slice(1);
-    crClausesLen--;
-  }
+//   if (crClausesLen > 0 && sentenceIsLogic(crClauses[0])) {
+//     crsmet = evalTokens(crClauses[0], currCourses);
+//     crClauses = prClauses.slice(1);
+//     crClausesLen--;
+//   }
 
-  res.json({
-    prerequisiteText: prText,
-    prerequisitesMet: prsmet,
-    prerequisiteNotes: prClauses,
-    corequisiteText: crText,
-    corequisitesMet: crsmet,
-    corequisiteNotes: crClauses,
-  });
-});
+//   res.json({
+//     prerequisiteText: prText,
+//     prerequisitesMet: prsmet,
+//     prerequisiteNotes: prClauses,
+//     corequisiteText: crText,
+//     corequisitesMet: crsmet,
+//     corequisiteNotes: crClauses,
+//   });
+// });
 
-router.get("/coreqs-met", async (req, res) => {
-  const body = req.body;
-  const courseId = body["courseId"];
-  let currCourses = body["currCourses"]; // All courses already taken
+// router.get("/coreqs-met", async (req, res) => {
+//   const body = req.body;
+//   const courseId = body["courseId"];
+//   let currCourses = body["currCourses"]; // All courses already taken
 
-  let gqlData = await fetchRStrings(courseId);
-  const crText = gqlData["data"]["course"]["corequisite"]; // raw requisite text
+//   let gqlData = await fetchRStrings(courseId);
+//   const crText = gqlData["data"]["course"]["corequisite"]; // raw requisite text
 
-  let crsmet = true; // set results default to true
+//   let crsmet = true; // set results default to true
 
-  let crClauses = strToClauses(crText);
-  let crClausesLen = crClauses.length; // separate by sentences
+//   let crClauses = strToClauses(crText);
+//   let crClausesLen = crClauses.length; // separate by sentences
 
-  if (crClausesLen > 0 && sentenceIsLogic(crClauses[0])) {
-    crsmet = evalTokens(crClauses[0], currCourses);
-    crClauses = crClauses.slice(1);
-    crClausesLen--;
-  }
+//   if (crClausesLen > 0 && sentenceIsLogic(crClauses[0])) {
+//     crsmet = evalTokens(crClauses[0], currCourses);
+//     crClauses = crClauses.slice(1);
+//     crClausesLen--;
+//   }
 
-  res.json({
-    corequisiteText: crText,
-    corequisitesMet: crsmet,
-    corequisiteNotes: crClauses,
-  });
-});
+//   res.json({
+//     corequisiteText: crText,
+//     corequisitesMet: crsmet,
+//     corequisiteNotes: crClauses,
+//   });
+// });
 
 // router.get("/req-tree-met", async (req, res) => {
 //   const courseId = req.body["courseId"];
@@ -110,7 +110,7 @@ router.post("/validate-courses", async (req, res) => {
     let courseBufferForNextQuarter = new Set();
     let currQuarter = courseMatrix[qIndex];
     let prData = await fetchPrereqs(currQuarter);
-    if (!prData) {
+    if (!prData || typeof prData === 'string') {
       continue;
     }
 
@@ -136,6 +136,9 @@ router.post("/validate-courses", async (req, res) => {
     // This is because corequisites are valid whether they are being taken
     // currently or they have been taken previously.
     let crData = await fetchCoreqs(currQuarter);
+    if (!crData || typeof crData === 'string') {
+      continue;
+    }
     for (let cIndex in currQuarter) {
       let currCourseData = crData["data"][`c${cIndex}`];
       let currCR = currCourseData["corequisites"];

@@ -1,5 +1,5 @@
 import axios from "axios";
-import { fetchCourseResponse, fetchRStringsResponse, fetchGEResponse, fetchPRTreeResponse, fetchPrereqsResponse, fetchCoreqsResponse } from "./serviceTypes.ts";
+import { fetchCourseResponse, fetchRStringsResponse, fetchGEResponse, fetchPRTreeResponse, fetchPrereqsResponse, fetchCoreqsResponse } from "./serviceTypes";
 
 const endpoint: string = "https://anteaterapi.com/v2/graphql/"
 
@@ -134,7 +134,8 @@ export async function fetchPrereqs(courses: number[]): Promise<fetchPrereqsRespo
     });
     // console.log(response)
     // console.log(response.data)
-    return response.data;
+    // return response.data;
+    return response;
   } catch (error) {
     return "ERROR: Requisite fetching";
   }
@@ -160,7 +161,8 @@ export async function fetchCoreqs(courses: number[]): Promise<fetchCoreqsRespons
         query: dataQuery,
       },
     });
-    return response.data;
+    // return response.data;
+    return response;
   } catch (error) {
     return "ERROR: Requisite fetching";
   }

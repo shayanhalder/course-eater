@@ -25,11 +25,23 @@ export interface fetchPRTreeResponse {
 }
 
 export interface fetchPrereqsResponse {
-    prerequisiteTree: string;
+    data: {
+        [key: string]: {
+            id: string;
+            prerequisiteTree: treeObj;
+        }
+    }
+    // prerequisiteTree: string;
 }
 
 export interface fetchCoreqsResponse {
-    corequisites: string;
+    data: {
+        [key: string]: {
+            id: string,
+            corequisites: string
+        }
+    }
+    // corequisites: string;
 }
 
 export interface courseRequirement {

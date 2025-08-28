@@ -2,7 +2,7 @@
 import express from 'express';
 const router = express.Router();
 // const { fetchCourse } = require("../services/api-service.js");
-import { fetchCourse } from "../services/api-service.ts";
+import { fetchCourse } from "../services/api-service";
 
 
 router.get("/", (req, res) => {
@@ -17,6 +17,9 @@ router.get("/", (req, res) => {
 router.get("/course", async (req, res) => {
   try {
     let courseId = req.query.courseId;
+    if (typeof courseId !== "string") {
+      throw new Error("Course ID is not a string");
+    }
     const courses = await fetchCourse(courseId);
 
     res.json(courses);

@@ -1,7 +1,7 @@
 // const express = require('express');
 import express from 'express';
 // const connectDB = require("../db/connection.js");
-import { connectDB } from "../db/connection.ts";
+import { connectDB } from "../db/connection";
 
 const router = express.Router();
 

@@ -1,5 +1,5 @@
-import { toTokens, isSyntax } from "./tokenizer.ts";
-import { Symbols } from "./symbols.ts";
+import { toTokens, isSyntax } from "./tokenizer";
+import { Symbols } from "./symbols";
 
 /**
  * Separates string into sentences.
@@ -29,9 +29,9 @@ export const strToClauses = (str: string) : string[] => {
  * @returns                Whether courses meet the requisites
  */
 export const evalTokens = (rStr: string, coursesTaken: string[]) : boolean => {
-  let currToken;
-  let taken;
-  let rTokens = toTokens(_padParens(rStr));
+  let currToken: string;
+  let taken: boolean;
+  let rTokens: any[] = toTokens(_padParens(rStr));
   let rLen: number = rTokens.length;
 
   for (let i = 0; i < rLen; i++) {

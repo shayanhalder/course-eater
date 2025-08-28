@@ -1,6 +1,6 @@
 // This module handles all operations with tree objects.
 
-import { treeObj } from "./serviceTypes.ts";
+import { treeObj } from "./serviceTypes";
 
 const convertToTree = (str: string): treeObj => {
     return JSON.parse(str);
