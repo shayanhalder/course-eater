@@ -6,12 +6,8 @@ import dbRouter from "./routes/db-endpoint";
 import reqRouter from "./routes/req-endpoint";
 import geRouter from "./routes/ge-endpoint";
 
-// const express = require("express");
-// const bodyParser = require("body-parser");
-// const cors = require("cors");
 const app = express();
 const PORT = 8000;
-
 
 /*
  * @todo Update corsOptions with appropriate origin, methods, and headers

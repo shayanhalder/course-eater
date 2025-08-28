@@ -1,60 +1,60 @@
 // This module handles all operations with tree objects.
 
-import { treeObj, courseRequirement } from "./serviceTypes";
+import { treeObj, courseRequirement } from "./serviceTypes.ts";
 
 const convertToTree = (str: string): treeObj => {
     return JSON.parse(str);
-  };
+};
   
-  const evalTree = (treeObj: treeObj, coursesTaken: string[]) : boolean => {
-    if (!treeObj || Object.keys(treeObj).length === 0) {
+export const evalTree = (treeObj: treeObj, coursesTaken: string[]) : boolean => {
+  if (!treeObj || Object.keys(treeObj).length === 0) {
+    return true;
+  }
+  const isAnd = "AND" in treeObj;
+  const operator = isAnd ? "AND" : "OR";
+
+  const reqs = treeObj[operator];
+  if (!reqs) {
+    return true;
+  }
+  // and (TRUE): if one is FALSE, return FALSE
+  //  or (FALSE): if one is TRUE , return TRUE
+  const reqLen = reqs.length;
+  for (let i = 0; i < reqLen; i++) {
+    let req = reqs[i];
+
+    let reqTaken;
+    if (_isCourse(req) && 'courseId' in req) {
+      reqTaken = _courseInList(req["courseId"], coursesTaken);
+    } else if (!('courseId' in req)) {
+      reqTaken = evalTree(req, coursesTaken);
+    }
+    if (reqTaken != isAnd) {
+      return !isAnd;
+    }
+  }
+  return isAnd;
+};
+
+function _isCourse(course: any) : boolean {
+  return !("AND" in course) && !("OR" in course);
+}
+
+function _courseInList(course: string, l: string[]) : boolean {
+  const listLen = l.length;
+  for (let i = 0; i < listLen; i++) {
+    if (_equalIgnoreSpace(course, l[i])) {
       return true;
     }
-    const isAnd = "AND" in treeObj;
-    const operator = isAnd ? "AND" : "OR";
-  
-    const reqs = treeObj[operator];
-    if (!reqs) {
-      return true;
-    }
-    // and (TRUE): if one is FALSE, return FALSE
-    //  or (FALSE): if one is TRUE , return TRUE
-    const reqLen = reqs.length;
-    for (let i = 0; i < reqLen; i++) {
-      let req = reqs[i];
-  
-      let reqTaken;
-      if (_isCourse(req) && 'courseId' in req) {
-        reqTaken = _courseInList(req["courseId"], coursesTaken);
-      } else if (!('courseId' in req)) {
-        reqTaken = evalTree(req, coursesTaken);
-      }
-      if (reqTaken != isAnd) {
-        return !isAnd;
-      }
-    }
-    return isAnd;
-  };
-  
-  function _isCourse(course: any) : boolean {
-    return !("AND" in course) && !("OR" in course);
   }
-  
-  function _courseInList(course: string, l: string[]) : boolean {
-    const listLen = l.length;
-    for (let i = 0; i < listLen; i++) {
-      if (_equalIgnoreSpace(course, l[i])) {
-        return true;
-      }
-    }
-    return false;
-  }
-  
-  function _equalIgnoreSpace(input1: string, input2: string) : boolean {
-    let s1 = input1.split(" ").join("");
-    let s2 = input2.split(" ").join("");
-    return s1 === s2;
-  }
-  
+  return false;
+}
+
+function _equalIgnoreSpace(input1: string, input2: string) : boolean {
+  let s1 = input1.split(" ").join("");
+  let s2 = input2.split(" ").join("");
+  return s1 === s2;
+}
+
   // module.exports = { evalTree, convertToTree };
   

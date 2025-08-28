@@ -6,14 +6,14 @@ import express from 'express';
 import { evalTokens, strToClauses } from "../services/requisites.ts";
 import { sentenceIsLogic } from "../services/tokenizer.ts";
 
-const {
+import {
   fetchRStrings,
   fetchPRTree,
   fetchPrereqs,
   fetchCoreqs,
-} = require("../services/api-service.js");
+} from "../services/api-service.ts";
 
-const { evalTree, convertToTree } = require("../services/tree.js");
+import { evalTree } from "../services/tree.ts";
 const router = express.Router();
 
 router.get("/reqs-met", async (req, res) => {
@@ -83,20 +83,20 @@ router.get("/coreqs-met", async (req, res) => {
   });
 });
 
-router.get("/req-tree-met", async (req, res) => {
-  const courseId = req.body["courseId"];
-  const coursesTaken = req.body["coursesTaken"];
+// router.get("/req-tree-met", async (req, res) => {
+//   const courseId = req.body["courseId"];
+//   const coursesTaken = req.body["coursesTaken"];
 
-  const data = await fetchPRTree(courseId);
-  const prStr = data["data"]["course"]["prerequisite_tree"];
+//   const data = await fetchPRTree(courseId);
+//   const prStr = data["data"]["course"]["prerequisite_tree"];
 
-  const prTree = convertToTree(prStr);
-  const reqsMet = evalTree(prTree, coursesTaken);
+//   const prTree = convertToTree(prStr);
+//   const reqsMet = evalTree(prTree, coursesTaken);
 
-  res.json({
-    prerequisitesMet: reqsMet,
-  });
-});
+//   res.json({
+//     prerequisitesMet: reqsMet,
+//   });
+// });
 
 router.post("/validate-courses", async (req, res) => {
   const courseMatrix : any = req.body["courseMatrix"];

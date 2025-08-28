@@ -2,7 +2,7 @@
 import express from 'express';
 const router = express.Router();
 
-const fetchCourse = require('../services/api-service.js')
+import { fetchCourse } from '../services/api-service.ts';
 
 // Middleware specific to endpoints
 router.get('/course', async (req, res) => {
