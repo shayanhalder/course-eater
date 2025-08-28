@@ -167,11 +167,11 @@ export async function fetchCoreqs(courses: number[]): Promise<fetchCoreqsRespons
   }
 }
 
-module.exports = {
-  fetchCourse,
-  fetchRStrings,
-  fetchGE,
-  fetchPRTree,
-  fetchPrereqs,
-  fetchCoreqs
-};
+// module.exports = {
+//   fetchCourse,
+//   fetchRStrings,
+//   fetchGE,
+//   fetchPRTree,
+//   fetchPrereqs,
+//   fetchCoreqs
+// };

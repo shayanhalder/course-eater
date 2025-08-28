@@ -25,4 +25,5 @@ router.get("/course", async (req, res) => {
   }
 });
 
-module.exports = router;
+// module.exports = router;
+export default router;

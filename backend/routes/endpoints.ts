@@ -18,4 +18,6 @@ router.get('/course', async (req, res) => {
 
 // TODO: add endpoints
 
-module.exports = router;
+export default router;
+
+// module.exports = router;

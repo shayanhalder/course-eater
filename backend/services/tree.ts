@@ -56,5 +56,5 @@ const convertToTree = (str: string): treeObj => {
     return s1 === s2;
   }
   
-  module.exports = { evalTree, convertToTree };
+  // module.exports = { evalTree, convertToTree };
   

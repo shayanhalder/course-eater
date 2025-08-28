@@ -1,13 +1,17 @@
-const express = require("express");
-const bodyParser = require("body-parser");
-const cors = require("cors");
+import express from "express";
+import bodyParser from "body-parser";
+import cors from "cors";
+import courseRouter from "./routes/course-endpoint";
+import dbRouter from "./routes/db-endpoint";
+import reqRouter from "./routes/req-endpoint";
+import geRouter from "./routes/ge-endpoint";
+
+// const express = require("express");
+// const bodyParser = require("body-parser");
+// const cors = require("cors");
 const app = express();
 const PORT = 8000;
 
-const courseRouter = require("./routes/course-endpoint.js");
-const dbRouter = require("./routes/db-endpoint.js")
-const reqRouter = require("./routes/req-endpoint.js");
-const geRouter = require("./routes/ge-endpoint.js");
 
 /*
  * @todo Update corsOptions with appropriate origin, methods, and headers

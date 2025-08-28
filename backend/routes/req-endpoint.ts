@@ -14,7 +14,6 @@ const {
 } = require("../services/api-service.js");
 
 const { evalTree, convertToTree } = require("../services/tree.js");
-
 const router = express.Router();
 
 router.get("/reqs-met", async (req, res) => {
@@ -160,4 +159,5 @@ router.post("/validate-courses", async (req, res) => {
   });
 });
 
-module.exports = router;
+// module.exports = router;
+export default router;

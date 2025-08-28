@@ -86,4 +86,4 @@ function _equalIgnoreCaseSpace(input1: string, input2: string) : boolean {
   return s1.toLowerCase() === s2.toLowerCase();
 }
 
-module.exports = { evalTokens, strToClauses };
+// module.exports = { evalTokens, strToClauses };
