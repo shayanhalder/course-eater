@@ -1,5 +1,3 @@
-// const { toTokens, isSyntax } = require("./tokenizer.ts");
-// const { Symbols } = require("./symbols.ts");
 import { toTokens, isSyntax } from "./tokenizer.ts";
 import { Symbols } from "./symbols.ts";
 

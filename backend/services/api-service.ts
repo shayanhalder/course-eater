@@ -1,4 +1,3 @@
-// const axios = require("axios");
 import axios from "axios";
 import { fetchCourseResponse, fetchRStringsResponse, fetchGEResponse, fetchPRTreeResponse, fetchPrereqsResponse, fetchCoreqsResponse } from "./serviceTypes.ts";
 
