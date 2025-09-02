@@ -108,10 +108,7 @@ export async function fetchPRTree(courseId: string): Promise<fetchPRTreeResponse
   }
 }
 
-export async function fetchPrereqs(courses: number[]): Promise<fetchPrereqsResponse | string> {
-  if (courses.length === 0) {
-    return "ERROR: No courses provided";
-  }
+export async function fetchPrereqs(courses: number[]): Promise<fetchPrereqsResponse> {
   let dataQuery = "";
   for (let courseIndex in courses) {
     dataQuery += `
@@ -122,26 +119,18 @@ export async function fetchPrereqs(courses: number[]): Promise<fetchPrereqsRespo
     `
   }
   dataQuery = `query { ${dataQuery} }`
-  // console.log(dataQuery)
-  
-  try {
-    const response = await axios({
-      url: endpoint,
-      method: "post",
-      data: {
-        query: dataQuery,
-      },
-    });
-    // console.log(response)
-    // console.log(response.data)
-    // return response.data;
-    return response;
-  } catch (error) {
-    return "ERROR: Requisite fetching";
-  }
+
+  const response = await axios({
+    url: endpoint,
+    method: "post",
+    data: {
+      query: dataQuery,
+    },
+  });
+  return response.data;
 }
 
-export async function fetchCoreqs(courses: number[]): Promise<fetchCoreqsResponse | string> {
+export async function fetchCoreqs(courses: number[]): Promise<fetchCoreqsResponse> {
   let dataQuery = "";
   for (let courseIndex in courses) {
     dataQuery += `
@@ -153,19 +142,14 @@ export async function fetchCoreqs(courses: number[]): Promise<fetchCoreqsRespons
   }
   dataQuery = `query { ${dataQuery} }`
   
-  try {
-    const response = await axios({
-      url: endpoint,
-      method: "post",
-      data: {
-        query: dataQuery,
-      },
-    });
-    // return response.data;
-    return response;
-  } catch (error) {
-    return "ERROR: Requisite fetching";
-  }
+  const response = await axios({
+    url: endpoint,
+    method: "post",
+    data: {
+      query: dataQuery,
+    },
+  });
+  return response.data;
 }
 
 // module.exports = {

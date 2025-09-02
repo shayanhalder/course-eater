@@ -109,8 +109,14 @@ router.post("/validate-courses", async (req, res) => {
   for (let qIndex in courseMatrix) {
     let courseBufferForNextQuarter = new Set();
     let currQuarter = courseMatrix[qIndex];
+    if (currQuarter.length === 0) {
+      continue;
+    }
     let prData = await fetchPrereqs(currQuarter);
-    if (!prData || typeof prData === 'string') {
+    // console.log("prData: ");
+    // console.log(prData);
+    // console.log(typeof prData);
+    if (!prData) {
       continue;
     }
 
@@ -135,10 +141,13 @@ router.post("/validate-courses", async (req, res) => {
     // use that allCourse set to check whether the corequisites have been met.
     // This is because corequisites are valid whether they are being taken
     // currently or they have been taken previously.
+    
     let crData = await fetchCoreqs(currQuarter);
-    if (!crData || typeof crData === 'string') {
+    if (!crData) {
       continue;
     }
+    // console.log("crData: ");
+    // console.log(crData);
     for (let cIndex in currQuarter) {
       let currCourseData = crData["data"][`c${cIndex}`];
       let currCR = currCourseData["corequisites"];

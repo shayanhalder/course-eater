@@ -74,8 +74,10 @@ function App() {
         if (!enforcingPrerequisites) return;
 
         const controller = new AbortController();
+        
 
         async function checkPrerequisites(orderedCourses: string[][]) {
+            console.log("Course matrix: ", orderedCourses);
             const options = {
                 method: "POST",
                 headers: {
@@ -91,6 +93,7 @@ function App() {
             console.log(data);
 
             const invalidCourses = data['missing_prereqs']
+            console.log("Missing prerequisites: ",  data['missing_prereqs']);
             const invalidCourseIDs: Set<string> = new Set();
             for (const course of invalidCourses) {
                 const id = orderedCourses[course['q_loc']][course['c_loc']]
