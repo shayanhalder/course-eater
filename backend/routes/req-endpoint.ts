@@ -113,9 +113,6 @@ router.post("/validate-courses", async (req, res) => {
       continue;
     }
     let prData = await fetchPrereqs(currQuarter);
-    // console.log("prData: ");
-    // console.log(prData);
-    // console.log(typeof prData);
     if (!prData) {
       continue;
     }
@@ -124,6 +121,7 @@ router.post("/validate-courses", async (req, res) => {
     for (let cIndex in currQuarter) {
       let currCourseData = prData["data"][`c${cIndex}`];
       let currPR = currCourseData["prerequisiteTree"];
+
 
       courseBufferForNextQuarter.add(currCourseData["id"]);
       if (currPR) {
@@ -146,8 +144,6 @@ router.post("/validate-courses", async (req, res) => {
     if (!crData) {
       continue;
     }
-    // console.log("crData: ");
-    // console.log(crData);
     for (let cIndex in currQuarter) {
       let currCourseData = crData["data"][`c${cIndex}`];
       let currCR = currCourseData["corequisites"];
