@@ -13,10 +13,10 @@ RUN npm ci
 # Copy source code
 COPY . .
 
-# Build TypeScript and verify the output
-RUN npm run build && ls -la dist/
+# Verify TypeScript compiler is available and build
+RUN npx tsc --version && npm run build && ls -la dist/
 
-# Remove dev dependencies to reduce image size
+# Remove dev dependencies to reduce image size (after build is complete)
 RUN npm prune --production
 
 # Expose port
