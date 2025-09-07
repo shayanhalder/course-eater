@@ -11,10 +11,16 @@ services:
   server:
     build:
       context: .
+      args:
+        - NODE_ENV=${NODE_ENV}
+        - PORT=${PORT}
+        - DB_URI=${DB_URI}
     environment:
-      NODE_ENV: production
+      - NODE_ENV=${NODE_ENV}
+      - PORT=${PORT}
+      - DB_URI=${DB_URI}
     ports:
-      - 8000:8000
+      - ${PORT}:${PORT}
 
 # The commented out section below is an example of how to define a PostgreSQL
 # database that your application can use. `depends_on` tells Docker Compose to
@@ -48,4 +54,3 @@ services:
 # secrets:
 #   db-password:
 #     file: db/password.txt
-
