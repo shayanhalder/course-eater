@@ -1,0 +1,5 @@
+docker-compose.yml
+node_modules/
+de_modules/
+.DS_Store
+.env
