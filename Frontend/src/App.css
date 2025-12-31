@@ -292,7 +292,7 @@ input {
   }
 
   .searchArea > * {
-    flex: 1 1 calc(100%- 40px);
+    flex: 1 1 calc(100% - 40px);
     box-sizing: border-box;
   }
 }
